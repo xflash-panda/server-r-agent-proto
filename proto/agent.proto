@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package agent;
+
+enum NodeType {
+  SHADOWSOCKS = 0;
+  TROJAN = 1;
+  VMESS = 2;
+  HYSTERIA = 3;
+  HYSTERIA2 = 4;
+  ANYTLS = 6;
+  TUIC = 7;
+}
+
+message ConfigRequest {
+  int32 node_id = 1;
+  NodeType node_type = 2;
+}
+
+message ConfigResponse {
+  bool result = 1;
+  bytes raw_data = 2;
+}
+
+message RegisterRequest {
+  int32 node_id = 1;
+  NodeType node_type = 2;
+  string host_name = 3;
+  string port = 4;
+  string ip = 5;
+}
+
+message RegisterResponse {
+  string register_id = 1;
+}
+
+message UnregisterRequest {
+  NodeType node_type = 1;
+  string register_id = 2;
+}
+
+message UnregisterResult {
+  bool result = 1;
+}
+
+message HeartbeatRequest {
+  NodeType node_type = 1;
+  string register_id = 2;
+}
+
+message HeartbeatResponse {
+  bool result = 1;
+}
+
+message SubmitRequest {
+  NodeType node_type = 1;
+  string register_id = 2;
+  bytes raw_data = 3;
+  bytes raw_stats = 4;
+}
+
+message SubmitResponse {
+  bool result = 1;
+}
+
+message UsersRequest {
+  NodeType node_type = 1;
+  string register_id = 2;
+}
+
+message UsersResponse {
+  bytes raw_data = 1;
+}
+
+message VerifyRequest {
+  NodeType node_type = 1;
+  string register_id = 2;
+}
+
+message VerifyResponse {
+  bool result = 1;
+}
+
+service Agent {
+  rpc Config(ConfigRequest) returns (ConfigResponse);
+  rpc Heartbeat(HeartbeatRequest) returns (HeartbeatResponse);
+  rpc Submit(SubmitRequest) returns (SubmitResponse);
+  rpc Users(UsersRequest) returns (UsersResponse);
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc Unregister(UnregisterRequest) returns (UnregisterResult);
+  rpc Verify(VerifyRequest) returns (VerifyResponse);
+}
