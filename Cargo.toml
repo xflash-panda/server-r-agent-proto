@@ -6,7 +6,7 @@ description = "Rust gRPC protocol definitions for server-agent communication"
 license = "GPL-3.0"
 
 [dependencies]
-prost = "0.13"
+prost = "0.14"
 tonic = "0.12"
 
 [build-dependencies]
