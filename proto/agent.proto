@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package agent;
+package pkg;
 
 enum NodeType {
   SHADOWSOCKS = 0;

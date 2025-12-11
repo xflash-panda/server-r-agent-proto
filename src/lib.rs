@@ -1,5 +1,5 @@
-pub mod agent {
-    tonic::include_proto!("agent");
+pub mod pkg {
+    tonic::include_proto!("pkg");
 }
 
-pub use agent::*;
+pub use pkg::*;
